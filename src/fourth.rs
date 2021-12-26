@@ -1,5 +1,6 @@
 use std::rc::Rc;
 use std::cell::{Ref, RefCell};
+use std::ops::Deref;
 
 pub struct List<T> {
     head: Link<T>,
@@ -66,6 +67,15 @@ impl<T> List<T> {
         self.head.as_ref().map(|node| {
             Ref::map(node.borrow(), |node| &node.elem)
         })
+    }
+
+    pub fn peek_front_type_deduction(&self){
+        self.head.as_ref().map(|node| {
+            let t = node;
+            let y = t.borrow();
+            let y = y.deref();
+            let z = &(y.elem);
+        });
     }
 }
 
